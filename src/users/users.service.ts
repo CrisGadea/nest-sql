@@ -30,7 +30,9 @@ export class UsersService {
   }
 
   getUsers() {
-    return this.repository.find();
+    return this.repository.find({
+      relations: ['posts', 'profile'],
+    });
   }
 
   async getUser(id: number) {
@@ -38,6 +40,7 @@ export class UsersService {
       where: {
         id, // id: id, == id
       },
+      relations: ['posts', 'profile'],
     });
 
     if (!userFound) {
