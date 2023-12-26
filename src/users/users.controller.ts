@@ -3,8 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  HttpException,
-  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -14,6 +12,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateProfileDto } from './dto/create-profile.dto';
 
 @Controller('users')
 export class UsersController {
@@ -45,5 +44,13 @@ export class UsersController {
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
     this.service.deleteUser(id);
+  }
+
+  @Post(':id/profile')
+  createProfile(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() profile: CreateProfileDto,
+  ) {
+    return this.service.createProfile(id, profile);
   }
 }
