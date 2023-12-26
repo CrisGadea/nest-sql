@@ -3,6 +3,8 @@ import {
   Controller,
   Delete,
   Get,
+  HttpException,
+  HttpStatus,
   Param,
   ParseIntPipe,
   Patch,
@@ -23,12 +25,12 @@ export class UsersController {
   }
 
   @Get(':id') // ParseIntPipe convierte a number el string recibido
-  getUser(@Param('id', ParseIntPipe) id: number): Promise<User> {
+  getUser(@Param('id', ParseIntPipe) id: number) {
     return this.service.getUser(id);
   }
 
   @Post()
-  createUser(@Body() newUser: CreateUserDto): Promise<User> {
+  createUser(@Body() newUser: CreateUserDto) {
     return this.service.createUser(newUser);
   }
 
@@ -42,6 +44,6 @@ export class UsersController {
 
   @Delete(':id')
   deleteUser(@Param('id', ParseIntPipe) id: number) {
-    return this.service.deleteUser(id);
+    this.service.deleteUser(id);
   }
 }
